@@ -309,6 +309,10 @@ a{ color: var(--bleu-clair); }
 .rp-podium-item__score{ font-family: var(--font-mono); font-size: .9rem; color: var(--bleu-principal); width:46px; text-align:right; }
 
 .rp-section-title{ margin-top: 34px; font-size: 1.05rem; color: var(--bleu-nuit); }
+.rp-band-title{
+  margin: 22px 0 10px; font-size: .78rem; font-weight: 700; letter-spacing: .06em;
+  color: var(--gris-discret); text-transform: uppercase;
+}
 :root[data-theme="dark"] .rp-section-title{ color: var(--gris-texte); }
 .rp-argu-list{ display:flex; flex-direction:column; gap: 12px; }
 .rp-argu-item{
@@ -6073,47 +6077,51 @@ a{ color: var(--bleu-clair); }
     });
     wrap.appendChild(podium);
 
-    // Argumentaire : accords forts
+    // Argumentaire détaillé, thème par thème
     const sortedThemes = [...top.perTheme].sort((a, b) => b.pct - a.pct);
-    const agreements = sortedThemes.filter((t) => t.pct >= 60).slice(0, 4);
-    const disagreements = sortedThemes.filter((t) => t.pct <= 40).slice(0, 2);
+    const strong = sortedThemes.filter((t) => t.pct >= 70);
+    const moderate = sortedThemes.filter((t) => t.pct >= 40 && t.pct < 70);
+    const weak = sortedThemes.filter((t) => t.pct < 40);
 
     wrap.appendChild(el("h3", { class: "rp-section-title" }, "Pourquoi ce candidat ?"));
-    const list = el("div", { class: "rp-argu-list" });
-    if (agreements.length === 0) {
-      list.appendChild(el("p", {}, "Les positions documentées pour ce candidat ne couvrent pas encore suffisamment vos thèmes prioritaires pour un argumentaire détaillé — la base de données est en cours de complétion."));
-    }
-    agreements.forEach((t) => {
-      const theme = themeById(t.themeId);
-      const detail = t.details.find((d) => d.candPos && d.candPos.source) || t.details[0];
-      const item = el("div", { class: "rp-argu-item" }, [
-        el("div", { class: "rp-argu-item__theme" }, theme.label.toUpperCase() + ` · ${Math.round(t.pct)}% d'accord`),
-        el("div", { class: "rp-argu-item__text" }, detail.candPos.note || "Position alignée avec la vôtre sur ce thème."),
-      ]);
-      if (detail.candPos.source) {
-        item.appendChild(el("div", { class: "rp-argu-item__source" }, el("a", { href: detail.candPos.source, target: "_blank", rel: "noopener" }, "Source ↗")));
-      }
-      list.appendChild(item);
-    });
-    wrap.appendChild(list);
 
-    if (disagreements.length > 0) {
-      wrap.appendChild(el("h3", { class: "rp-section-title" }, "Points de désaccord notables"));
-      const dList = el("div", { class: "rp-argu-list" });
-      disagreements.forEach((t) => {
+    if (sortedThemes.length === 0) {
+      wrap.appendChild(el("p", {}, "Les positions documentées pour ce candidat ne couvrent pas encore suffisamment vos thèmes prioritaires pour un argumentaire détaillé — la base de données est en cours de complétion."));
+    } else {
+      const runnerUp = results[1];
+      let intro = `Sur les ${sortedThemes.length} thème${sortedThemes.length > 1 ? "s" : ""} où vos réponses sont comparables à son programme, vous êtes en fort accord avec ${top.candidat.name} sur ${strong.length}, en accord partiel sur ${moderate.length}, et en désaccord sur ${weak.length}.`;
+      if (runnerUp) {
+        const margin = Math.round(top.globalScore - runnerUp.globalScore);
+        intro += ` Son avance sur ${runnerUp.candidat.name} (${Math.round(runnerUp.globalScore)}%) est de ${margin} point${margin > 1 ? "s" : ""} de compatibilité.`;
+      }
+      wrap.appendChild(el("p", {}, intro));
+    }
+
+    function renderBand(title, items, extraClass) {
+      if (items.length === 0) return;
+      wrap.appendChild(el("h4", { class: "rp-band-title" }, title));
+      const list = el("div", { class: "rp-argu-list" });
+      items.forEach((t) => {
         const theme = themeById(t.themeId);
-        const detail = t.details[0];
-        const item = el("div", { class: "rp-argu-item is-disagree" }, [
-          el("div", { class: "rp-argu-item__theme" }, theme.label.toUpperCase() + ` · ${Math.round(t.pct)}% d'accord`),
-          el("div", { class: "rp-argu-item__text" }, detail.candPos.note || "Position éloignée de la vôtre sur ce thème."),
+        const withSource = t.details.find((d) => d.candPos && d.candPos.source);
+        const detail = withSource || t.details[0];
+        const nQuestions = t.details.length;
+        const item = el("div", { class: "rp-argu-item" + (extraClass ? " " + extraClass : "") }, [
+          el("div", { class: "rp-argu-item__theme" },
+            `${theme.label.toUpperCase()} · ${Math.round(t.pct)}% d'accord · priorité ${t.weight}/10 · ${nQuestions} question${nQuestions > 1 ? "s" : ""} comparée${nQuestions > 1 ? "s" : ""}`),
+          el("div", { class: "rp-argu-item__text" }, detail.candPos.note || "Position comparée sur ce thème."),
         ]);
         if (detail.candPos.source) {
           item.appendChild(el("div", { class: "rp-argu-item__source" }, el("a", { href: detail.candPos.source, target: "_blank", rel: "noopener" }, "Source ↗")));
         }
-        dList.appendChild(item);
+        list.appendChild(item);
       });
-      wrap.appendChild(dList);
+      wrap.appendChild(list);
     }
+
+    renderBand("Vos points de fort accord", strong);
+    renderBand("Vos points d'accord partiel", moderate);
+    renderBand("Vos points de désaccord", weak, "is-disagree");
 
     // Alertes profil
     const alerts = buildAlerts(top);
