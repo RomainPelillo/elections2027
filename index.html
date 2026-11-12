@@ -24,6 +24,7 @@
   --rouge:         #e1251b;
   --rouge-sombre:  #b01810;
   --blanc:         #ffffff;
+  --blanc-fixe:    #ffffff; /* toujours blanc, même en mode sombre : pour le texte sur fonds bleus fixes (header, ticket, badges) */
   --gris-fond:     #f5f7fb;
   --gris-ligne:    #e1e6f0;
   --gris-texte:    #1c2430;
@@ -81,7 +82,7 @@ a{ color: var(--bleu-clair); }
 .rp-header{
   position: sticky; top:0; z-index: 20;
   background: var(--bleu-nuit);
-  color: var(--blanc);
+  color: var(--blanc-fixe);
   padding-top: env(safe-area-inset-top, 0px);
 }
 .rp-header__inner{
@@ -93,14 +94,14 @@ a{ color: var(--bleu-clair); }
 .rp-brand__plane{ width:22px; height:22px; color: var(--rouge); transform: rotate(45deg); }
 .rp-brand__text{
   font-family: var(--font-display); font-weight:700; font-size: 1.05rem;
-  letter-spacing: 0.08em; color: var(--blanc);
+  letter-spacing: 0.08em; color: var(--blanc-fixe);
 }
 .rp-link-btn{
-  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.55); color: var(--blanc);
+  background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.55); color: var(--blanc-fixe);
   padding: 8px 16px; border-radius: 999px; font-size: .82rem; font-weight: 600;
   cursor:pointer; transition: border-color .15s, background .15s;
 }
-.rp-link-btn:hover{ border-color: var(--blanc); background: rgba(255,255,255,.26); }
+.rp-link-btn:hover{ border-color: var(--blanc-fixe); background: rgba(255,255,255,.26); }
 .rp-link-btn:focus-visible, button:focus-visible, input:focus-visible, [tabindex]:focus-visible{
   outline: 2px solid var(--rouge); outline-offset: 2px;
 }
@@ -186,16 +187,16 @@ a{ color: var(--bleu-clair); }
 /* ---------- BUTTONS ---------- */
 .rp-btn{
   display:inline-flex; align-items:center; gap:8px; justify-content:center;
-  background: var(--rouge); color: var(--blanc); border:none;
+  background: var(--rouge); color: var(--blanc-fixe); border:none;
   padding: 13px 26px; border-radius: 999px; font-weight:600; font-size: .98rem;
   cursor:pointer; transition: background .15s, transform .1s;
 }
 .rp-btn:hover{ background: var(--rouge-sombre); }
 .rp-btn:active{ transform: scale(.98); }
 .rp-btn--secondary{
-  background: transparent; color: var(--bleu-principal); border: 1px solid var(--gris-ligne);
+  background: rgba(59,111,214,.14); color: var(--bleu-clair); border: 1px solid rgba(59,111,214,.5);
 }
-.rp-btn--secondary:hover{ background: var(--bleu-pale); }
+.rp-btn--secondary:hover{ background: rgba(59,111,214,.26); border-color: var(--bleu-clair); }
 .rp-btn[disabled]{ opacity:.4; cursor:not-allowed; }
 .rp-nav{ display:flex; justify-content: space-between; align-items:center; margin-top: 28px; gap: 12px; }
 
@@ -242,7 +243,7 @@ a{ color: var(--bleu-clair); }
   font-size: .85rem; cursor:pointer; background: var(--blanc); user-select:none;
 }
 .rp-chip input{ display:none; }
-.rp-chip.is-checked{ background: var(--bleu-principal); color: var(--blanc); border-color: var(--bleu-principal); }
+.rp-chip.is-checked{ background: var(--bleu-principal); color: var(--blanc-fixe); border-color: var(--bleu-principal); }
 
 /* ---------- QUESTIONS (Bloc C) ---------- */
 .rp-question-card{ background: var(--blanc); border:1px solid var(--gris-ligne); border-radius: var(--radius-l); padding: 26px; }
@@ -275,7 +276,7 @@ a{ color: var(--bleu-clair); }
 
 /* ---------- RÉSULTAT : carte d'embarquement ---------- */
 .rp-ticket{
-  background: var(--bleu-nuit); color: var(--blanc);
+  background: var(--bleu-nuit); color: var(--blanc-fixe);
   border-radius: var(--radius-l); overflow:hidden; margin-top: 10px;
 }
 .rp-ticket__head{ padding: 26px 28px 20px; }
@@ -329,7 +330,7 @@ a{ color: var(--bleu-clair); }
 
 .rp-badges{ display:flex; gap: 8px; flex-wrap:wrap; margin-top: 18px; }
 .rp-badge{
-  font-size: .76rem; font-family: var(--font-mono); background: var(--bleu-pale); color: var(--bleu-principal);
+  font-size: .76rem; font-family: var(--font-mono); background: rgba(59,111,214,.14); color: var(--bleu-clair);
   padding: 5px 10px; border-radius: 999px;
 }
 
@@ -360,7 +361,7 @@ a{ color: var(--bleu-clair); }
   color: var(--gris-discret); font-size: .82rem;
 }
 .rp-footer .rp-link-btn{
-  color: var(--blanc); background: var(--bleu-principal);
+  color: var(--blanc-fixe); background: var(--bleu-principal);
   border-color: var(--bleu-principal); margin-top: 8px;
 }
 .rp-footer .rp-link-btn:hover{ background: var(--bleu-nuit); border-color: var(--bleu-nuit); }
@@ -407,7 +408,7 @@ a{ color: var(--bleu-clair); }
     <p>Les positions attribuées à chaque candidat proviennent de leurs programmes officiels, déclarations publiques et de comparateurs journalistiques vérifiés. Chaque position affichée dans votre résultat est accompagnée d'un lien source. Quand un candidat n'a pas encore publié de position claire sur un sujet, nous l'indiquons explicitement plutôt que de deviner — cette base est <strong>en cours de complétion</strong> au fur et à mesure que les programmes sont précisés.</p>
 
     <h3>2. Comment vos réponses sont pondérées</h3>
-    <p>Vous attribuez à chaque thème une priorité de 1 (pas du tout prioritaire) à 7 (totalement prioritaire). Plus un thème compte pour vous, plus il pèse dans le calcul du candidat final — et plus le questionnaire creuse vos positions précises sur ce thème.</p>
+    <p>Vous attribuez à chaque thème une priorité de 1 (pas du tout prioritaire) à 10 (totalement prioritaire). Plus un thème compte pour vous, plus il pèse dans le calcul du candidat final — et plus le questionnaire creuse vos positions précises sur ce thème.</p>
 
     <h3>3. Comment le score de correspondance est calculé</h3>
     <p>Pour chaque question à laquelle vous répondez, nous comparons votre réponse à celle du candidat sur la même échelle de positionnement :</p>
@@ -5612,18 +5613,14 @@ a{ color: var(--bleu-clair); }
   const PROGRESS_PLANE = document.getElementById("progress-plane");
   const PROGRESS_LABEL = document.getElementById("progress-label");
 
-  const THEME_COUNT_RAPIDE = 8;
-
   /** @type {{themes: Array}} */
   let QUESTIONS = null;
   /** @type {{meta:Object, candidats:Array}} */
   let CANDIDATS = null;
 
   const state = {
-    mode: null, // 'rapide' | 'complet'
     profile: {},
-    selectedThemes: [], // mode rapide
-    weights: {},        // mode complet : themeId -> 1..7
+    weights: {},        // themeId -> 1..10
     answers: {},         // questionId -> code
     steps: [],            // liste de descripteurs d'écran, construite dynamiquement
     stepIndex: 0,
@@ -5689,57 +5686,24 @@ a{ color: var(--bleu-clair); }
   }
 
   // ---------- Construction du parcours ----------
-  function buildStepsForModeChoice() {
+  function buildInitialSteps() {
     state.steps = [
       { type: "home", phase: "" },
-      { type: "mode-choice", phase: "Enregistrement" },
-    ];
-    state.stepIndex = 0;
-  }
-
-  function buildStepsRapide() {
-    state.steps = [
-      { type: "home", phase: "" },
-      { type: "mode-choice", phase: "Enregistrement" },
-      { type: "theme-pick", phase: "Choix de la destination" },
-      // les écrans "theme-long" seront injectés dynamiquement après sélection
-    ];
-  }
-
-  function injectThemeLongScreensRapide() {
-    // retire tout écran de contenu après theme-pick, puis réinjecte
-    const base = state.steps.slice(0, 3); // home, mode-choice, theme-pick
-    const themeScreens = state.selectedThemes.map((tid) => ({
-      type: "theme-long",
-      themeId: tid,
-      phase: "Embarquement",
-    }));
-    state.steps = [
-      ...base,
-      ...themeScreens,
-      { type: "loading", phase: "Vol en cours" },
-      { type: "result", phase: "Atterrissage" },
-    ];
-  }
-
-  function buildStepsComplet() {
-    state.steps = [
-      { type: "home", phase: "" },
-      { type: "mode-choice", phase: "Enregistrement" },
       { type: "profile", phase: "Enregistrement" },
       { type: "priorities", phase: "Choix de la destination" },
       // écrans de thème injectés après saisie des priorités
     ];
+    state.stepIndex = 0;
   }
 
-  function injectThemeScreensComplet() {
-    const base = state.steps.slice(0, 4); // home, mode-choice, profile, priorities
+  function injectThemeScreens() {
+    const base = state.steps.slice(0, 3); // home, profile, priorities
     const themeScreens = [];
     QUESTIONS.themes.forEach((t) => {
-      const w = state.weights[t.id] || 4;
-      if (w >= 6) themeScreens.push({ type: "theme-long", themeId: t.id, phase: "Embarquement" });
-      else if (w >= 4) themeScreens.push({ type: "theme-short", themeId: t.id, phase: "Embarquement" });
-      // w <= 3 : thème ignoré en Bloc C
+      const w = state.weights[t.id] || 5;
+      if (w >= 8) themeScreens.push({ type: "theme-long", themeId: t.id, phase: "Embarquement" });
+      else if (w >= 5) themeScreens.push({ type: "theme-short", themeId: t.id, phase: "Embarquement" });
+      // w <= 4 : thème ignoré en Bloc C
     });
     state.steps = [
       ...base,
@@ -5756,8 +5720,6 @@ a{ color: var(--bleu-clair); }
     APP.className = "rp-screen";
     switch (step.type) {
       case "home": return renderHome();
-      case "mode-choice": return renderModeChoice();
-      case "theme-pick": return renderThemePick();
       case "profile": return renderProfile();
       case "priorities": return renderPriorities();
       case "theme-long": return renderThemeQuestions(step.themeId, true);
@@ -5778,88 +5740,13 @@ a{ color: var(--bleu-clair); }
       el("div", { class: "rp-boarding-card" }, [
         el("h3", {}, "Avant de décoller"),
         el("p", {}, "Cet outil compare vos réponses aux programmes publiés des candidats. Certaines positions ne sont pas encore connues : elles sont neutralisées dans le calcul plutôt que devinées."),
-        el("button", { class: "rp-btn", onclick: () => { buildStepsForModeChoice(); next(); } }, "Commencer l'enregistrement →"),
+        el("button", { class: "rp-btn", onclick: () => { buildInitialSteps(); next(); } }, "Commencer l'enregistrement →"),
       ]),
     ]);
     APP.appendChild(card);
   }
 
-  // ----- Écran : choix du mode -----
-  function renderModeChoice() {
-    const wrap = el("div", {}, [
-      el("h1", {}, "Rapide ou complet ?"),
-      el("p", { class: "lead" }, "Les deux modes utilisent le même calcul. Le mode rapide va droit à vos 8 sujets prioritaires ; le mode complet passe en revue les 17 thèmes de la présidentielle."),
-      el("div", { class: "rp-mode-grid" }, [
-        el("div", {
-          class: "rp-mode-card",
-          onclick: () => { state.mode = "rapide"; buildStepsRapide(); next(); },
-        }, [
-          el("span", { class: "rp-mode-card__tag" }, "~3 MIN"),
-          el("h3", {}, "Mode rapide"),
-          el("p", {}, "Choisissez vos 8 thèmes prioritaires, répondez en détail uniquement sur ceux-ci."),
-        ]),
-        el("div", {
-          class: "rp-mode-card",
-          onclick: () => { state.mode = "complet"; buildStepsComplet(); next(); },
-        }, [
-          el("span", { class: "rp-mode-card__tag" }, "~8 MIN"),
-          el("h3", {}, "Mode complet"),
-          el("p", {}, "Notez vos 17 priorités puis répondez, en profondeur variable, sur chacune."),
-        ]),
-      ]),
-    ]);
-    APP.appendChild(wrap);
-  }
-
-  // ----- Écran : sélection des 8 thèmes (mode rapide) -----
-  function renderThemePick() {
-    const wrap = el("div", {});
-    wrap.appendChild(el("h1", {}, "Vos 8 thèmes prioritaires"));
-    wrap.appendChild(el("p", { class: "lead" }, "Sélectionnez exactement 8 sujets. Ce sont eux qui détermineront votre résultat."));
-
-    const grid = el("div", { class: "rp-theme-grid" });
-    const counter = el("div", { class: "rp-counter" }, `0 / ${THEME_COUNT_RAPIDE} sélectionnés`);
-
-    QUESTIONS.themes.forEach((t) => {
-      const checked = state.selectedThemes.includes(t.id);
-      const input = el("input", {
-        type: "checkbox",
-        ...(checked ? { checked: "checked" } : {}),
-      });
-      const label = el("label", { class: "rp-theme-pick" + (checked ? " is-checked" : "") }, [input, el("span", {}, t.label)]);
-      input.addEventListener("change", () => {
-        if (input.checked) {
-          if (state.selectedThemes.length >= THEME_COUNT_RAPIDE) {
-            input.checked = false;
-            return;
-          }
-          state.selectedThemes.push(t.id);
-        } else {
-          state.selectedThemes = state.selectedThemes.filter((id) => id !== t.id);
-        }
-        label.classList.toggle("is-checked", input.checked);
-        counter.textContent = `${state.selectedThemes.length} / ${THEME_COUNT_RAPIDE} sélectionnés`;
-        nextBtn.disabled = state.selectedThemes.length !== THEME_COUNT_RAPIDE;
-      });
-      grid.appendChild(label);
-    });
-    wrap.appendChild(grid);
-    wrap.appendChild(counter);
-
-    const nextBtn = el("button", {
-      class: "rp-btn",
-      ...(state.selectedThemes.length === THEME_COUNT_RAPIDE ? {} : { disabled: "disabled" }),
-      onclick: () => { injectThemeLongScreensRapide(); next(); },
-    }, "Passer à l'embarquement →");
-
-    wrap.appendChild(el("div", { class: "rp-nav" }, [
-      el("button", { class: "rp-btn rp-btn--secondary", onclick: prev }, "← Retour"),
-      nextBtn,
-    ]));
-    APP.appendChild(wrap);
-  }
-
-  // ----- Écran : profil (Bloc A, mode complet) -----
+  // ----- Écran : profil (Bloc A) -----
   const PROFILE_FIELDS = [
     { id: "age", label: "Tranche d'âge", type: "select", options: ["18-24", "25-34", "35-49", "50-64", "65 et plus"] },
     { id: "situation", label: "Situation familiale", type: "select", options: ["Célibataire", "En couple / pacsé(e)", "Marié(e)", "Divorcé(e)", "Veuf / veuve"] },
@@ -5970,7 +5857,7 @@ a{ color: var(--bleu-clair); }
   }
 
   // ----- Écran : priorités (Bloc B, mode complet) -----
-  const SCALE_LABELS = ["Pas du tout prioritaire", "Peu prioritaire", "Plutôt peu prioritaire", "Neutre", "Plutôt prioritaire", "Prioritaire", "Totalement prioritaire"];
+  const SCALE_LABELS = ["Pas du tout prioritaire", "Très peu prioritaire", "Peu prioritaire", "Plutôt peu prioritaire", "Neutre", "Plutôt prioritaire", "Assez prioritaire", "Prioritaire", "Très prioritaire", "Totalement prioritaire"];
 
   function renderPriorities() {
     const wrap = el("div", {});
@@ -5979,11 +5866,11 @@ a{ color: var(--bleu-clair); }
 
     const list = el("div", { class: "rp-priority-list" });
     QUESTIONS.themes.forEach((t) => {
-      const val = state.weights[t.id] || 4;
+      const val = state.weights[t.id] || 5;
       const valueLabel = el("span", { class: "rp-priority-item__value" }, String(val));
       const sub = el("div", { class: "rp-priority-item__scale" }, [el("span", {}, SCALE_LABELS[val - 1])]);
       const slider = el("input", {
-        type: "range", min: "1", max: "7", step: "1", value: String(val), class: "rp-slider",
+        type: "range", min: "1", max: "10", step: "1", value: String(val), class: "rp-slider",
       });
       slider.addEventListener("input", () => {
         const v = parseInt(slider.value, 10);
@@ -6002,7 +5889,7 @@ a{ color: var(--bleu-clair); }
 
     wrap.appendChild(el("div", { class: "rp-nav" }, [
       el("button", { class: "rp-btn rp-btn--secondary", onclick: prev }, "← Retour"),
-      el("button", { class: "rp-btn", onclick: () => { injectThemeScreensComplet(); next(); } }, "Passer à l'embarquement →"),
+      el("button", { class: "rp-btn", onclick: () => { injectThemeScreens(); next(); } }, "Passer à l'embarquement →"),
     ]));
     APP.appendChild(wrap);
   }
@@ -6099,7 +5986,7 @@ a{ color: var(--bleu-clair); }
       Object.entries(themeScores).forEach(([themeId, v]) => {
         if (v.den === 0) return;
         const pct = (v.num / v.den) * 100;
-        const weight = state.mode === "rapide" ? 6 : (state.weights[themeId] || 4);
+        const weight = state.weights[themeId] || 5;
         weightedNum += pct * weight;
         weightedDen += weight;
         perTheme.push({ themeId, pct, details: v.details, weight });
@@ -6163,7 +6050,6 @@ a{ color: var(--bleu-clair); }
         ]),
       ]),
       el("div", { class: "rp-ticket__stub" }, [
-        el("div", { class: "rp-ticket__row" }, [el("span", {}, "Mode de questionnaire"), el("span", {}, state.mode === "rapide" ? "Rapide (8 thèmes)" : "Complet (17 thèmes)")]),
         el("div", { class: "rp-ticket__row" }, [el("span", {}, "Thèmes évalués"), el("span", {}, String(top.perTheme.length))]),
         top.candidat.party_site
           ? el("div", { class: "rp-ticket__row" }, [el("span", {}, "Site du mouvement"), el("a", { href: top.candidat.party_site, target: "_blank", rel: "noopener", style: "color:#fff" }, "Consulter ↗")])
@@ -6238,7 +6124,7 @@ a{ color: var(--bleu-clair); }
 
     // Badges
     const badges = el("div", { class: "rp-badges" });
-    badges.appendChild(el("span", { class: "rp-badge" }, state.mode === "rapide" ? "Mode rapide ✓" : "17 thèmes explorés ✓"));
+    badges.appendChild(el("span", { class: "rp-badge" }, "17 thèmes explorés ✓"));
     if (Object.keys(state.profile).length > 0) badges.appendChild(el("span", { class: "rp-badge" }, "Profil complété ✓"));
     wrap.appendChild(badges);
 
@@ -6251,12 +6137,10 @@ a{ color: var(--bleu-clair); }
   }
 
   function resetAndRestart() {
-    state.mode = null;
     state.profile = {};
-    state.selectedThemes = [];
     state.weights = {};
     state.answers = {};
-    buildStepsForModeChoice();
+    buildInitialSteps();
     goTo(0);
   }
 
@@ -6275,7 +6159,7 @@ a{ color: var(--bleu-clair); }
     APP.innerHTML = '<div class="rp-loading"><p>Préparation de l\'embarquement…</p></div>';
     try {
       await loadData();
-      buildStepsForModeChoice();
+      buildInitialSteps();
       goTo(0);
     } catch (err) {
       APP.innerHTML = "";
